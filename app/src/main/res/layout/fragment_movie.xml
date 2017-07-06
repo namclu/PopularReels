@@ -7,14 +7,12 @@
              android:paddingLeft="@dimen/activity_horizontal_margin"
              android:paddingRight="@dimen/activity_horizontal_margin"
              android:paddingTop="@dimen/activity_vertical_margin"
-             tools:context=".MoviesActivity">
-    <!-- tools:context=".MoviesActivity$PlaceholderFragment"> -->
+             tools:context=".MovieListFragment">
 
     <ListView
         android:id="@+id/list_view_forecast"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </ListView>
 
 </FrameLayout>
