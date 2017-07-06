@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Movie list -->
+    <dimen name="recycler_margin_horizontal">4dp</dimen>
+    <dimen name="recycler_margin_vertical">4dp</dimen>
+    <dimen name="recycler_layout_spacing">4dp</dimen>
+    <dimen name="recycler_item_footer_height_min">48dp</dimen>
+    <dimen name="recycler_item_footer_padding">16dp</dimen>
+
+    <!-- Movie detail -->
+    <dimen name="movie_image_size">200dp</dimen>
+    <dimen name="movie_image_margin_vertical">24dp</dimen>
+    <dimen name="movie_name_margin_top">24dp</dimen>
+    <dimen name="movie_description_margin_left">32dp</dimen>
+    <dimen name="movie_description_margin_right">24dp</dimen>
+    <dimen name="movie_description_margin_bottom">16dp</dimen>
+</resources>
