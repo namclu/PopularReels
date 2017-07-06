@@ -12,12 +12,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="@dimen/movie_name_margin_top"
+            android:layout_marginTop="@dimen/movie_title_margin_top"
             android:text="Freddie Mercury"/>
 
         <ImageView

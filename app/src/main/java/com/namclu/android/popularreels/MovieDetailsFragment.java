@@ -19,14 +19,12 @@ import android.view.ViewGroup;
  */
 public class MovieDetailsFragment extends Fragment {
 
-    public MovieDetailsFragment() {
-        // Required empty public constructor
-    }
-
-    public static MovieDetailsFragment newInstance(String param1, String param2) {
+    // A method for creating new instances of the fragment, a factory method.
+    public static MovieDetailsFragment newInstance() {
         return new MovieDetailsFragment();
     }
 
+    // Create the view hierarchy controlled by the fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -10,7 +10,7 @@
     <!-- Movie detail -->
     <dimen name="movie_image_size">200dp</dimen>
     <dimen name="movie_image_margin_vertical">24dp</dimen>
-    <dimen name="movie_name_margin_top">24dp</dimen>
+    <dimen name="movie_title_margin_top">24dp</dimen>
     <dimen name="movie_description_margin_left">32dp</dimen>
     <dimen name="movie_description_margin_right">24dp</dimen>
     <dimen name="movie_description_margin_bottom">16dp</dimen>
