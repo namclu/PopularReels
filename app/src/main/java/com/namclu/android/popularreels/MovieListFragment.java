@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +19,9 @@ import java.util.List;
  */
 
 public class MovieListFragment extends Fragment {
+
+    // Global variables
+    private ArrayAdapter<String> mMovieAdapter;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -39,7 +44,19 @@ public class MovieListFragment extends Fragment {
 
         List<String> forecastList = new ArrayList<String>(Arrays.asList(data));
 
+        mMovieAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.list_item_movie,
+                R.id.text_list_item_movie,
+                data
+        );
+
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
+
+        // Get a reference to the ListView, and attach adapter to it
+        ListView listView = (ListView) rootView.findViewById(R.id.list_view_movie);
+        listView.setAdapter(mMovieAdapter);
+
         return rootView;
     }
 }

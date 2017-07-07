@@ -10,7 +10,7 @@
              tools:context=".MovieListFragment">
 
     <ListView
-        android:id="@+id/list_view_forecast"
+        android:id="@+id/list_view_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
