@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'MOVIES_DB_API_KEY', "\"501e578b41e03d35dac0bcf6012bbf29\""
+    }
 }
 
 dependencies {

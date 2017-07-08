@@ -1,5 +1,6 @@
 package com.namclu.android.popularreels;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,12 +17,12 @@ import java.net.URL;
  * Created by namlu on 7/8/2017.
  */
 
-public class FetchMovieTask extends AsyncTask<Void, Void, Void> {
+public class FetchMovieTask extends AsyncTask<String, Void, Void> {
 
     private static final String TAG = FetchMovieTask.class.getSimpleName();
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Void doInBackground(String... params) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader bufferedReader = null;
@@ -33,8 +34,19 @@ public class FetchMovieTask extends AsyncTask<Void, Void, Void> {
 
         try {
             // Construct URL for themoviedb.org query
-            URL url = new URL(
-                    "http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+            final String POPULAR_MOVIES_BASE_URL =
+                    "https://api.themoviedb.org/3/movie/popular/?";
+            // String that precedes the user's App ID key
+            final String APP_KEY_PARAM = "api_key";
+
+            Uri createUri = Uri.parse(POPULAR_MOVIES_BASE_URL).buildUpon()
+                    .appendQueryParameter(APP_KEY_PARAM, BuildConfig.MOVIES_DB_API_KEY)
+                    .build();
+
+            URL url = new URL(createUri.toString());
+
+            // Log message to check
+            Log.v(TAG, "Built URI: " + url.toString());
 
             // Create the request and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
