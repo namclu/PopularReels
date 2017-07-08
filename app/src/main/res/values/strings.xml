@@ -3,5 +3,6 @@
 
     <!-- Actions -->
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>
