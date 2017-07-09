@@ -21,13 +21,15 @@ import java.net.URL;
 
 /**
  * Created by namlu on 7/8/2017.
+ *
+ * Class to fetch data from movie database
  */
 
-public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
+class FetchMovieTask extends AsyncTask<String, Void, String[]> {
 
     private static final String TAG = FetchMovieTask.class.getSimpleName();
 
-    private WeakReference<ArrayAdapter<String>> mAdapter;
+    private final WeakReference<ArrayAdapter<String>> mAdapter;
 
     public FetchMovieTask(ArrayAdapter<String> adapter) {
         mAdapter = new WeakReference<>(adapter);
@@ -79,7 +81,7 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
 
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    stringBuffer.append(line + "\n");
+                    stringBuffer.append(line).append("\n");
                 }
 
                 // If StringBuffer is empty, not point in parsing
@@ -92,9 +94,7 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
                 Log.e(TAG, "Error response code: " + urlConnection.getResponseCode());
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
+        } catch (MalformedURLException | ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,12 +128,11 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
         final String MDB_RESULTS = "results";
         final String MDB_TITLE = "title";
 
-        String[] resultsString = new String[50];
-
         try {
             JSONObject movieObject = new JSONObject(movieJsonString);
             JSONArray resultsArray = movieObject.getJSONArray(MDB_RESULTS);
 
+            String[] resultsString = new String[resultsArray.length()];
             // Extract values from the results array if there are any
             for (int i = 0; i < resultsArray.length(); i++) {
 
@@ -141,8 +140,6 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
                 if (resultsObject.has(MDB_TITLE)) {
                     resultsString[i] = resultsObject.getString(MDB_TITLE);
                 }
-            }
-            if (resultsString.length > 0) {
             }
             // Test output
             for (String s: resultsString) {

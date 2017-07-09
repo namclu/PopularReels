@@ -47,7 +47,6 @@ public class MovieListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 new FetchMovieTask(mMovieAdapter).execute();
-                mMovieAdapter.notifyDataSetChanged();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -68,13 +67,13 @@ public class MovieListFragment extends Fragment {
                 "Sun 6/29 - Sunny - 20/7"
         };
 
-        List<String> forecastList = new ArrayList<String>(Arrays.asList(data));
+        List<String> forecastList = new ArrayList<>(Arrays.asList(data));
 
-        mMovieAdapter = new ArrayAdapter<String>(
+        mMovieAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_movie,
                 R.id.text_list_item_movie,
-                data
+                forecastList
         );
 
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
