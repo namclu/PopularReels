@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -25,6 +26,12 @@ import java.net.URL;
 public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
 
     private static final String TAG = FetchMovieTask.class.getSimpleName();
+
+    private WeakReference<ArrayAdapter<String>> mAdapter;
+
+    public FetchMovieTask(ArrayAdapter<String> adapter) {
+        mAdapter = new WeakReference<>(adapter);
+    }
 
     @Override
     protected String[] doInBackground(String... params) {
@@ -150,10 +157,12 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
 
     @Override
     protected void onPostExecute(String[] movieResults) {
-        ArrayAdapter<String> movieAdapter = new ArrayAdapter<String>()
+        final ArrayAdapter<String> movieAdapter = mAdapter.get();
 
         if (movieResults != null) {
-
+            movieAdapter.clear();
+            movieAdapter.addAll(movieResults);
+            movieAdapter.notifyDataSetChanged();
         }
     }
 }

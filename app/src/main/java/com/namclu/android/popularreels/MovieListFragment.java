@@ -46,7 +46,8 @@ public class MovieListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                new FetchMovieTask().execute();
+                new FetchMovieTask(mMovieAdapter).execute();
+                mMovieAdapter.notifyDataSetChanged();
                 return true;
         }
         return super.onOptionsItemSelected(item);
