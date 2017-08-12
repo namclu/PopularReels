@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,20 +67,20 @@ public class MovieListFragment extends Fragment {
                 "Sun 6/29 - Sunny - 20/7"
         };
 
-        List<String> forecastList = new ArrayList<>(Arrays.asList(data));
+        List<String> movieList = new ArrayList<>(Arrays.asList(data));
 
         mMovieAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_movie,
                 R.id.text_list_item_movie,
-                forecastList
+                movieList
         );
 
-        View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_movie_list, container, false);
 
         // Get a reference to the ListView, and attach adapter to it
-        ListView listView = (ListView) rootView.findViewById(R.id.list_view_movie);
-        listView.setAdapter(mMovieAdapter);
+        GridView gridView = (GridView) rootView.findViewById(R.id.grid_view_movie);
+        gridView.setAdapter(mMovieAdapter);
 
         return rootView;
     }

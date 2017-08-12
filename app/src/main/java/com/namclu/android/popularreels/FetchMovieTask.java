@@ -15,8 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 /**
@@ -94,8 +92,6 @@ class FetchMovieTask extends AsyncTask<String, Void, String[]> {
                 Log.e(TAG, "Error response code: " + urlConnection.getResponseCode());
             }
 
-        } catch (MalformedURLException | ProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
