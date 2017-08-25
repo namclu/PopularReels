@@ -123,6 +123,7 @@ class FetchMovieTask extends AsyncTask<String, Void, String[]> {
         // Names of the JSON objects that need to be extracted
         final String MDB_RESULTS = "results";
         final String MDB_TITLE = "title";
+        final String MDB_POSTER_PATH = "poster_path";
 
         try {
             JSONObject movieObject = new JSONObject(movieJsonString);
@@ -135,6 +136,11 @@ class FetchMovieTask extends AsyncTask<String, Void, String[]> {
                 JSONObject resultsObject = resultsArray.getJSONObject(i);
                 if (resultsObject.has(MDB_TITLE)) {
                     resultsString[i] = resultsObject.getString(MDB_TITLE);
+                }
+                if (resultsObject.has(MDB_POSTER_PATH)) {
+                    if (resultsObject.getString(MDB_POSTER_PATH) != null) {
+                        resultsString[i] = resultsObject.getString(MDB_POSTER_PATH);
+                    }
                 }
             }
             // Test output
