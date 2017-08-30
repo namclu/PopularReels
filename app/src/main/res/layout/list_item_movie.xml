@@ -7,18 +7,19 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
+    <ImageView
+        android:id="@+id/image_movie_poster"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_menu_gallery"/>
+
     <TextView
-        android:id="@+id/text_list_item_movie"
+        android:id="@+id/text_movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/image_movie_poster"
         android:gravity="center_vertical"
         tools:text="Today - Sunny - 88/63"/>
 
-    <ImageView
-        android:id="@+id/image_view_movie"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/text_list_item_movie"
-        android:src="@android:drawable/ic_menu_gallery"/>
 
 </RelativeLayout>

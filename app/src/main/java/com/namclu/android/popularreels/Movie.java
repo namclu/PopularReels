@@ -16,8 +16,8 @@ public class Movie {
 
 
     public Movie(String title, String image) {
-        movieTitle = getMovieTitle();
-        movieTitle = getMovieImageUrl();
+        this.movieTitle = getMovieTitle();
+        this.movieTitle = getMovieImageUrl();
     }
 
     public Movie(String movieTitle, String movieImageUrl, String movieReleaseDate,

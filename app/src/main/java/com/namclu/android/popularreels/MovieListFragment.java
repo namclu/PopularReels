@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MovieListFragment extends Fragment {
 
-    // Global variables
+    // Class variables
     private ArrayAdapter<String> mMovieAdapter;
 
     public static MovieListFragment newInstance() {
@@ -72,7 +72,7 @@ public class MovieListFragment extends Fragment {
         mMovieAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_movie,
-                R.id.text_list_item_movie,
+                R.id.text_movie_title,
                 movieList
         );
 
