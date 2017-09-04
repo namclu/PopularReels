@@ -13,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by namlu on 7/6/2017.
@@ -25,7 +23,7 @@ import java.util.List;
 public class MovieListFragment extends Fragment {
 
     // Class variables
-    private ArrayAdapter<String> mMovieAdapter;
+    private ArrayAdapter<Movie> mMovieAdapter;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -56,8 +54,16 @@ public class MovieListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
+        GridView gridView = (GridView) view.findViewById(R.id.grid_view_movie);
+        mMovieAdapter = new ArrayAdapter<Movie>(getActivity(), R.layout.list_item_movie, new ArrayList<Movie>());
+        gridView.setAdapter(mMovieAdapter);
+
+        new FetchMovieTask(mMovieAdapter).execute();
+
+        return view;
         // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        String[] data = {
+        /*String[] data = {
                 "Mon 6/23 - Sunny - 31/17",
                 "Tue 6/24 - Foggy - 21/8",
                 "Wed 6/25 - Cloudy - 22/17",
@@ -82,6 +88,6 @@ public class MovieListFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.grid_view_movie);
         gridView.setAdapter(mMovieAdapter);
 
-        return rootView;
+        return rootView;*/
     }
 }

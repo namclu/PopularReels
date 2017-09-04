@@ -11,6 +11,7 @@
         android:id="@+id/image_movie_poster"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_centerInParent="true"
         android:src="@android:drawable/ic_menu_gallery"/>
 
     <TextView
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image_movie_poster"
         android:gravity="center_vertical"
-        tools:text="Today - Sunny - 88/63"/>
+        android:paddingTop="8dp"
+        tools:text="My Movie Title"/>
 
 
 </RelativeLayout>
