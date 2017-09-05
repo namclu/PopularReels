@@ -120,45 +120,15 @@ class FetchMovieTask extends AsyncTask<Movie, Void, List<Movie>> {
     }
 
     /*
-    *
+    * Get a list of movies from JSON
     * */
     private List<Movie> getMovieDataFromJson(String movieJsonString) throws JSONException {
-        // Names of the JSON objects that need to be extracted
-        final String MDB_RESULTS = "results";
-        final String MDB_TITLE = "title";
-        final String MDB_POSTER_PATH = "poster_path";
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Movie>>() {}.getType();
+        Type type = new TypeToken<MovieResponse>() {}.getType();
 
-        List<Movie> fromJson = gson.fromJson(movieJsonString, type);
-        /*try {
-            JSONObject movieObject = new JSONObject(movieJsonString);
-            JSONArray resultsArray = movieObject.getJSONArray(MDB_RESULTS);
+        MovieResponse movieResponse = gson.fromJson(movieJsonString, type);
 
-            String[] resultsString = new String[resultsArray.length()];
-            // Extract values from the results array if there are any
-            for (int i = 0; i < resultsArray.length(); i++) {
-
-                JSONObject resultsObject = resultsArray.getJSONObject(i);
-                if (resultsObject.has(MDB_TITLE)) {
-                    resultsString[i] = resultsObject.getString(MDB_TITLE);
-                }
-                if (resultsObject.has(MDB_POSTER_PATH)) {
-                    if (resultsObject.getString(MDB_POSTER_PATH) != null) {
-                        resultsString[i] = resultsObject.getString(MDB_POSTER_PATH);
-                    }
-                }
-            }
-            // Test output
-            for (String s: resultsString) {
-                Log.v(TAG, "Results string " + s);
-            }
-            return resultsString;
-        } catch (JSONException e) {
-            Log.e(TAG, "Problem retrieving JSON results.", e);
-        }
-        return null;*/
-        return  fromJson;
+        return  movieResponse.getMovies();
     }
 
     @Override

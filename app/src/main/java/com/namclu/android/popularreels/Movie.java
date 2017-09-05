@@ -1,5 +1,9 @@
 package com.namclu.android.popularreels;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by namlu on 27-Aug-17.
  *
@@ -8,64 +12,144 @@ package com.namclu.android.popularreels;
  */
 
 public class Movie {
-    private String movieTitle;
-    private String movieImageUrl;
-    private String movieReleaseDate;
-    private int movieVoteAverage;
-    private String moviePlotSynopsis;
+    @SerializedName("vote_count")
+    private int voteCount;
+    @SerializedName("id")
+    private int movieId;
+    @SerializedName("video")
+    private boolean hasVideo;
+    @SerializedName("vote_average")
+    private float voteAverage;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("popularity")
+    private float popularity;
+    @SerializedName("poster_path")
+    private String posterPath;
+    @SerializedName("original_language")
+    private String originalLanguage;
+    @SerializedName("original_title")
+    private String originalTitle;
+    @SerializedName("genre_ids")
+    private List<Integer> genreIds;
+    @SerializedName("backdrop_path")
+    private String backdropPath;
+    @SerializedName("adult")
+    private boolean isAdult;
+    @SerializedName("overview")
+    private String overview;
+    @SerializedName("release_date")
+    private String releaseDate;
 
-
-    public Movie(String title, String image) {
-        this.movieTitle = getMovieTitle();
-        this.movieTitle = getMovieImageUrl();
+    public int getVoteCount() {
+        return voteCount;
     }
 
-    public Movie(String movieTitle, String movieImageUrl, String movieReleaseDate,
-                 int movieVoteAverage, String moviePlotSynopsis) {
-        this.movieTitle = getMovieTitle();
-        this.movieImageUrl = getMovieImageUrl();
-        this.movieReleaseDate = getMovieReleaseDate();
-        this.movieVoteAverage = getMovieVoteAverage();
-        this.moviePlotSynopsis = getMoviePlotSynopsis();
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
-    public String getMovieTitle() {
-        return movieTitle;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
-    public String getMovieImageUrl() {
-        return movieImageUrl;
+    public boolean isHasVideo() {
+        return hasVideo;
     }
 
-    public void setMovieImageUrl(String movieImageUrl) {
-        this.movieImageUrl = movieImageUrl;
+    public void setHasVideo(boolean hasVideo) {
+        this.hasVideo = hasVideo;
     }
 
-    public String getMovieReleaseDate() {
-        return movieReleaseDate;
+    public float getVoteAverage() {
+        return voteAverage;
     }
 
-    public void setMovieReleaseDate(String movieReleaseDate) {
-        this.movieReleaseDate = movieReleaseDate;
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
     }
 
-    public int getMovieVoteAverage() {
-        return movieVoteAverage;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMovieVoteAverage(int movieVoteAverage) {
-        this.movieVoteAverage = movieVoteAverage;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMoviePlotSynopsis() {
-        return moviePlotSynopsis;
+    public float getPopularity() {
+        return popularity;
     }
 
-    public void setMoviePlotSynopsis(String moviePlotSynopsis) {
-        this.moviePlotSynopsis = moviePlotSynopsis;
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public boolean isAdult() {
+        return isAdult;
+    }
+
+    public void setAdult(boolean adult) {
+        isAdult = adult;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }

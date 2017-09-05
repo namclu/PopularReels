@@ -31,7 +31,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         Movie currentMovie = mMovies.get(position);
 
         holder.mTextMovieTitle.setText(
-                String.format(Locale.ENGLISH, "%s", currentMovie.getMovieTitle()));
+                String.format(Locale.ENGLISH, "%s", currentMovie.getTitle()));
         // Todo: get bitmap image
         //holder.mImageMoviePoster.setImageBitmap();
     }

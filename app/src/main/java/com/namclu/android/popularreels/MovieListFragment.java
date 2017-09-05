@@ -56,7 +56,8 @@ public class MovieListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.grid_view_movie);
-        mMovieAdapter = new ArrayAdapter<Movie>(getActivity(), R.layout.list_item_movie, new ArrayList<Movie>());
+        mMovieAdapter = new ArrayAdapter<Movie>(
+                getActivity(), R.layout.list_item_movie, R.id.text_movie_title, new ArrayList<Movie>());
         gridView.setAdapter(mMovieAdapter);
 
         new FetchMovieTask(mMovieAdapter).execute();
