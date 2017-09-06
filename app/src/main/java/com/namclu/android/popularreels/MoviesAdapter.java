@@ -14,12 +14,12 @@ import java.util.Locale;
  * Created by namlu on 30-Aug-17.
  */
 
-public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.ViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     // Class variables
     private List<Movie> mMovies;
 
     @Override
-    public MovieItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_movie, parent, false);
 
@@ -27,7 +27,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(MovieItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MoviesAdapter.ViewHolder holder, int position) {
         Movie currentMovie = mMovies.get(position);
 
         holder.mTextMovieTitle.setText(

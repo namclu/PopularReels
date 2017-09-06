@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import com.namclu.android.popularreels.rest.ApiClient;
@@ -34,7 +33,8 @@ public class MovieListFragment extends Fragment {
     private static final String API_KEY = BuildConfig.MOVIES_DB_API_KEY;
 
     // Class variables
-    private ArrayAdapter<Movie> mMovieAdapter;
+    private MovieListAdapter mMoviesAdapter;
+    private GridView mGridView;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -55,7 +55,7 @@ public class MovieListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                new FetchMovieTask(mMovieAdapter).execute();
+                refreshMovies();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -73,8 +73,15 @@ public class MovieListFragment extends Fragment {
         super.onStart();
 
         // Find references to views
-        final GridView gridView = (GridView) getView().findViewById(R.id.grid_view_movie);
+        mGridView = (GridView) getView().findViewById(R.id.grid_view_movie);
 
+        refreshMovies();
+    }
+
+    /*
+    * Method to get a list of Movies and update GridView
+    * */
+    private void refreshMovies() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
@@ -82,10 +89,8 @@ public class MovieListFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<Movie> movies = response.body().getMovies();
-                mMovieAdapter = new ArrayAdapter<Movie>(
-                        getActivity(), R.layout.list_item_movie,
-                        R.id.text_movie_title, movies);
-                gridView.setAdapter(mMovieAdapter);
+                mMoviesAdapter = new MovieListAdapter(movies);
+                mGridView.setAdapter(mMoviesAdapter);
             }
 
             @Override
