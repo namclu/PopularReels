@@ -6,6 +6,10 @@ import java.util.List;
 
 /**
  * Created by namlu on 04-Sep-17.
+ *
+ * The MovieResponse class defines the JSON structure returned, which includes
+ * a List<Movie> when querying popular movies
+ * ("http://api.themoviedb.org/3/movie/popular/?") from themoviedb.org
  */
 
 public class MovieResponse {

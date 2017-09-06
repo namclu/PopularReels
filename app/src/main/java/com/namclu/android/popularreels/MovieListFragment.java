@@ -63,32 +63,5 @@ public class MovieListFragment extends Fragment {
         new FetchMovieTask(mMovieAdapter).execute();
 
         return view;
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        /*String[] data = {
-                "Mon 6/23 - Sunny - 31/17",
-                "Tue 6/24 - Foggy - 21/8",
-                "Wed 6/25 - Cloudy - 22/17",
-                "Thurs 6/26 - Rainy - 18/11",
-                "Fri 6/27 - Foggy - 21/10",
-                "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-                "Sun 6/29 - Sunny - 20/7"
-        };
-
-        List<String> movieList = new ArrayList<>(Arrays.asList(data));
-
-        mMovieAdapter = new ArrayAdapter<>(
-                getActivity(),
-                R.layout.list_item_movie,
-                R.id.text_movie_title,
-                movieList
-        );
-
-        View rootView = inflater.inflate(R.layout.fragment_movie_list, container, false);
-
-        // Get a reference to the ListView, and attach adapter to it
-        GridView gridView = (GridView) rootView.findViewById(R.id.grid_view_movie);
-        gridView.setAdapter(mMovieAdapter);
-
-        return rootView;*/
     }
 }
