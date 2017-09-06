@@ -89,7 +89,7 @@ public class MovieListFragment extends Fragment {
     private void refreshMovies() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<MovieResponse> call = apiInterface.getPopularMovies();
+        Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
