@@ -1,4 +1,4 @@
-package com.namclu.android.popularreels;
+package com.namclu.android.popularreels.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.namclu.android.popularreels.fragment.MovieListFragment;
+
 public class MoviesActivity extends AppCompatActivity {
 
     @Override

@@ -1,4 +1,4 @@
-package com.namclu.android.popularreels;
+package com.namclu.android.popularreels.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.namclu.android.popularreels.BuildConfig;
+import com.namclu.android.popularreels.adapter.MoviesAdapter;
+import com.namclu.android.popularreels.R;
+import com.namclu.android.popularreels.model.Movie;
+import com.namclu.android.popularreels.model.MovieResponse;
 import com.namclu.android.popularreels.rest.ApiClient;
 import com.namclu.android.popularreels.rest.ApiInterface;
 
@@ -33,7 +38,7 @@ public class MovieListFragment extends Fragment {
     private static final String API_KEY = BuildConfig.MOVIES_DB_API_KEY;
 
     // Class variables
-    private MovieListAdapter mMoviesAdapter;
+    private MoviesAdapter mMoviesAdapter;
     private GridView mGridView;
 
     public static MovieListFragment newInstance() {
@@ -84,12 +89,12 @@ public class MovieListFragment extends Fragment {
     private void refreshMovies() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
+        Call<MovieResponse> call = apiInterface.getPopularMovies();
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<Movie> movies = response.body().getMovies();
-                mMoviesAdapter = new MovieListAdapter(movies);
+                mMoviesAdapter = new MoviesAdapter(movies);
                 mGridView.setAdapter(mMoviesAdapter);
             }
 

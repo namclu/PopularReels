@@ -1,4 +1,4 @@
-package com.namclu.android.popularreels;
+package com.namclu.android.popularreels.adapter;
 
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
@@ -9,21 +9,26 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.namclu.android.popularreels.Constants;
+import com.namclu.android.popularreels.R;
+import com.namclu.android.popularreels.model.Movie;
 
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by namlu on 06-Sep-17.
+ *
+ * Adapter to display a Movie object
  */
 
-class MovieListAdapter implements ListAdapter {
+public class MoviesAdapter implements ListAdapter {
     private static final String IMAGE_SIZE = "w342/";
 
-    private List<Movie> mMovies;
+    private final List<Movie> mMovies;
 
-
-    public MovieListAdapter(List<Movie> movies) {
+    // Constructor
+    public MoviesAdapter(List<Movie> movies) {
         mMovies = movies;
     }
 
@@ -69,7 +74,7 @@ class MovieListAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
 
         if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext())

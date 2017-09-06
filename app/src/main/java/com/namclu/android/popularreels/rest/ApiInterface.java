@@ -1,6 +1,6 @@
 package com.namclu.android.popularreels.rest;
 
-import com.namclu.android.popularreels.MovieResponse;
+import com.namclu.android.popularreels.model.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
