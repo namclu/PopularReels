@@ -5,24 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/grid_item_spacing"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:padding="@dimen/grid_item_spacing">
 
     <ImageView
-        android:contentDescription="@string/description_movie_poster_image"
         android:id="@+id/image_movie_poster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/movie_item_width"
+        android:layout_height="@dimen/movie_poster_height"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:contentDescription="@string/description_movie_poster_image"
         android:src="@android:drawable/ic_menu_gallery"/>
 
     <TextView
         android:id="@+id/text_movie_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/movie_item_width"
+        android:layout_height="@dimen/movie_title_height"
         android:layout_below="@id/image_movie_poster"
-        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:gravity="center"
         tools:text="My Movie Title"/>
 
 </RelativeLayout>

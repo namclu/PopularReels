@@ -9,8 +9,7 @@
         android:id="@+id/grid_view_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="@dimen/grid_column_width"
-        android:numColumns="auto_fit"
+        android:numColumns="3"
         android:verticalSpacing="@dimen/grid_item_spacing"
         android:horizontalSpacing="@dimen/grid_item_spacing"/>
 
