@@ -6,4 +6,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="description_movie_poster_image">Movie Poster Image</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
