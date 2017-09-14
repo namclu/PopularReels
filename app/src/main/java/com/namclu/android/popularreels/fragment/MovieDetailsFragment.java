@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.namclu.android.popularreels.Constants;
 import com.namclu.android.popularreels.R;
 import com.namclu.android.popularreels.model.Movie;
 
@@ -21,6 +23,7 @@ public class MovieDetailsFragment extends Fragment {
 
     private static final String TAG = MovieDetailsFragment.class.getSimpleName();
     private static final String MOVIE = "Movie";
+    private static final String IMAGE_SIZE = "w342/";
 
     // Class variables
     Movie mMovie;
@@ -50,6 +53,28 @@ public class MovieDetailsFragment extends Fragment {
         // Set @Movie details
         if (!mMovie.getTitle().isEmpty()) {
             movieTitle.setText(String.format(Locale.ENGLISH, "%s", mMovie.getTitle()));
+        } else {
+            movieTitle.setText(String.format(Locale.ENGLISH, "%s", "No title given"));
+        }
+        if (!mMovie.getOverview().isEmpty()) {
+            movieSynopsis.setText(String.format(Locale.ENGLISH, "%s", mMovie.getOverview()));
+        } else {
+            movieSynopsis.setText(String.format(Locale.ENGLISH, "%s", "No synopsis given"));
+        }
+        if (mMovie.getVoteAverage() != 0.0) {
+            movieRating.setText(String.format(Locale.ENGLISH, "%s", mMovie.getVoteAverage()));
+        } else {
+            movieRating.setText(String.format(Locale.ENGLISH, "%s", "No vote average given"));
+        }
+        if (!mMovie.getReleaseDate().isEmpty()) {
+            releaseDate.setText(String.format(Locale.ENGLISH, "%s", mMovie.getReleaseDate()));
+        } else {
+            releaseDate.setText(String.format(Locale.ENGLISH, "%s", "No synopsis given"));
+        }
+        if (!mMovie.getPosterPath().isEmpty()) {
+            Glide.with(view.getContext())
+                    .load(Constants.POSTER_PATH + IMAGE_SIZE + mMovie.getPosterPath())
+                    .into(moviePoster);
         }
 
         return view;
