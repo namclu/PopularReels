@@ -25,10 +25,18 @@ import java.util.Locale;
 public class MoviesAdapter implements ListAdapter {
     private static final String IMAGE_SIZE = "w342/";
 
+    // Class variables
     private final List<Movie> mMovies;
+    public OnMovieClickListener mMovieClickListener;
+
+    // Interfaces
+    public interface OnMovieClickListener {
+        void OnMovieClicked(Movie movie);
+    }
 
     // Constructor
-    public MoviesAdapter(List<Movie> movies) {
+    public MoviesAdapter(OnMovieClickListener onMovieClickListener, List<Movie> movies) {
+        mMovieClickListener = onMovieClickListener;
         mMovies = movies;
     }
 
@@ -86,13 +94,23 @@ public class MoviesAdapter implements ListAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Movie movie = getItem(position);
+        final Movie movie = getItem(position);
         
         // Initialize views
         Glide.with(viewGroup.getContext())
                 .load(Constants.POSTER_PATH + IMAGE_SIZE + movie.getPosterPath())
                 .into(viewHolder.mImageMoviePoster);
         viewHolder.mTextMovieTitle.setText(String.format(Locale.ENGLISH, "%s", movie.getTitle()));
+
+        // Click listener which sends a @Movie object to the caller
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mMovieClickListener != null) {
+                    mMovieClickListener.OnMovieClicked(movie);
+                }
+            }
+        });
 
         return view;
     }

@@ -49,8 +49,8 @@
 
     <ImageView
         android:id="@+id/image_movie_poster"
-        android:layout_width="@dimen/movie_item_width"
-        android:layout_height="@dimen/movie_poster_height"
+        android:layout_width="@dimen/movie_details_poster_width"
+        android:layout_height="@dimen/movie_details_poster_height"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_menu_gallery"

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/image_movie_poster"
-        android:layout_width="@dimen/movie_item_width"
-        android:layout_height="@dimen/movie_poster_height"
+        android:layout_width="@dimen/movie_list_item_width"
+        android:layout_height="@dimen/movie_list_poster_height"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/description_movie_poster_image"
@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/text_movie_title"
-        android:layout_width="@dimen/movie_item_width"
-        android:layout_height="@dimen/movie_title_height"
+        android:layout_width="@dimen/movie_list_item_width"
+        android:layout_height="@dimen/movie_list_title_height"
         android:layout_below="@id/image_movie_poster"
         android:layout_centerVertical="true"
         android:gravity="center"

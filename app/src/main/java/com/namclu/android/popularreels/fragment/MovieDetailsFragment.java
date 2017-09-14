@@ -22,15 +22,16 @@ import java.util.Locale;
 public class MovieDetailsFragment extends Fragment {
 
     private static final String TAG = MovieDetailsFragment.class.getSimpleName();
-    private static final String MOVIE = "Movie";
-    private static final String IMAGE_SIZE = "w342/";
+    private static final String STRING_MOVIE = "STRING_MOVIE";
+    private static final String IMAGE_SIZE = "w500/";
 
     // Class variables
     Movie mMovie;
 
-    public static MovieDetailsFragment newInstance() {
+    public static MovieDetailsFragment newInstance(Movie movie) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         Bundle args = new Bundle();
+        args.putParcelable(STRING_MOVIE, movie);
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +39,7 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mMovie = getArguments().getParcelable(MOVIE);
+        mMovie = getArguments().getParcelable(STRING_MOVIE);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_details, container, false);
@@ -69,7 +70,7 @@ public class MovieDetailsFragment extends Fragment {
         if (!mMovie.getReleaseDate().isEmpty()) {
             releaseDate.setText(String.format(Locale.ENGLISH, "%s", mMovie.getReleaseDate()));
         } else {
-            releaseDate.setText(String.format(Locale.ENGLISH, "%s", "No synopsis given"));
+            releaseDate.setText(String.format(Locale.ENGLISH, "%s", "No release date given"));
         }
         if (!mMovie.getPosterPath().isEmpty()) {
             Glide.with(view.getContext())
@@ -79,4 +80,12 @@ public class MovieDetailsFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActivity().setTitle(getResources().getString(R.string.fragment_title_details));
+    }
+
 }

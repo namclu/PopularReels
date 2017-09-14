@@ -3,6 +3,7 @@ package com.namclu.android.popularreels.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,10 +33,11 @@ import retrofit2.Response;
  * Fragment to display a list of movies
  */
 
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovieClickListener {
 
     private static final String TAG = MovieListFragment.class.getSimpleName();
     private static final String API_KEY = BuildConfig.MOVIES_DB_API_KEY;
+    private static final String FRAGMENT_MOVIE_DETAILS = "FRAGMENT_MOVIE_DETAILS";
 
     // Class variables
     private MoviesAdapter mMoviesAdapter;
@@ -83,6 +85,13 @@ public class MovieListFragment extends Fragment {
         refreshMovies();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActivity().setTitle(getResources().getString(R.string.app_name));
+    }
+
     /*
     * Method to get a list of Movies and update GridView
     * */
@@ -94,7 +103,7 @@ public class MovieListFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<Movie> movies = response.body().getMovies();
-                mMoviesAdapter = new MoviesAdapter(movies);
+                mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
                 mGridView.setAdapter(mMoviesAdapter);
             }
 
@@ -103,5 +112,17 @@ public class MovieListFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
+    }
+
+    @Override
+    public void OnMovieClicked(Movie movie) {
+        MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(movie);
+
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment, FRAGMENT_MOVIE_DETAILS)
+                .addToBackStack(FRAGMENT_MOVIE_DETAILS)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
 }
