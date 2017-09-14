@@ -1,5 +1,8 @@
 package com.namclu.android.popularreels.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
  * the movie title, image, release date, plot synopsis, among other movie info
  */
 
-public class Movie {
+public class Movie implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
     @SerializedName("id")
@@ -41,6 +44,65 @@ public class Movie {
     @SerializedName("release_date")
     private String releaseDate;
 
+    /*
+     * Parcelable Implementation
+     */
+    protected Movie(Parcel in) {
+        voteCount = in.readInt();
+        movieId = in.readInt();
+        hasVideo = in.readByte() != 0;
+        voteAverage = in.readFloat();
+        title = in.readString();
+        popularity = in.readFloat();
+        posterPath = in.readString();
+        originalLanguage = in.readString();
+        originalTitle = in.readString();
+        backdropPath = in.readString();
+        isAdult = in.readByte() != 0;
+        overview = in.readString();
+        releaseDate = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    /*
+     * Parcelable methods
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(voteCount);
+        parcel.writeInt(movieId);
+        parcel.writeByte((byte) (hasVideo ? 1 : 0));
+        parcel.writeFloat(voteAverage);
+        parcel.writeString(title);
+        parcel.writeFloat(popularity);
+        parcel.writeString(posterPath);
+        parcel.writeString(originalLanguage);
+        parcel.writeString(originalTitle);
+        parcel.writeString(backdropPath);
+        parcel.writeByte((byte) (isAdult ? 1 : 0));
+        parcel.writeString(overview);
+        parcel.writeString(releaseDate);
+    }
+
+    /*
+     * Movie setters/getters
+     */
     public int getVoteCount() {
         return voteCount;
     }
