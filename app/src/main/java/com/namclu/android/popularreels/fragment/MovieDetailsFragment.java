@@ -13,6 +13,9 @@ import com.namclu.android.popularreels.Constants;
 import com.namclu.android.popularreels.R;
 import com.namclu.android.popularreels.model.Movie;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -55,22 +58,28 @@ public class MovieDetailsFragment extends Fragment {
         if (!mMovie.getTitle().isEmpty()) {
             movieTitle.setText(String.format(Locale.ENGLISH, "%s", mMovie.getTitle()));
         } else {
-            movieTitle.setText(String.format(Locale.ENGLISH, "%s", "No title given"));
+            movieTitle.setText(String.format(Locale.ENGLISH, "%s",
+                    getResources().getString(R.string.default_no_info)));
         }
         if (!mMovie.getOverview().isEmpty()) {
             movieSynopsis.setText(String.format(Locale.ENGLISH, "%s", mMovie.getOverview()));
         } else {
-            movieSynopsis.setText(String.format(Locale.ENGLISH, "%s", "No synopsis given"));
+            movieSynopsis.setText(String.format(Locale.ENGLISH, "%s",
+                    getResources().getString(R.string.default_no_info)));
         }
         if (mMovie.getVoteAverage() != 0.0) {
-            movieRating.setText(String.format(Locale.ENGLISH, "%s", mMovie.getVoteAverage()));
+            movieRating.setText(String.format(Locale.ENGLISH, "%s%s",
+                    mMovie.getVoteAverage(), "/10"));
         } else {
-            movieRating.setText(String.format(Locale.ENGLISH, "%s", "No vote average given"));
+            movieRating.setText(String.format(Locale.ENGLISH, "%s",
+                    getResources().getString(R.string.default_no_info)));
         }
         if (!mMovie.getReleaseDate().isEmpty()) {
-            releaseDate.setText(String.format(Locale.ENGLISH, "%s", mMovie.getReleaseDate()));
+            releaseDate.setText(String.format(Locale.ENGLISH, "%s",
+                    formatDate(mMovie.getReleaseDate())));
         } else {
-            releaseDate.setText(String.format(Locale.ENGLISH, "%s", "No release date given"));
+            releaseDate.setText(String.format(Locale.ENGLISH, "%s",
+                    getResources().getString(R.string.default_no_info)));
         }
         if (!mMovie.getPosterPath().isEmpty()) {
             Glide.with(view.getContext())
@@ -88,4 +97,19 @@ public class MovieDetailsFragment extends Fragment {
         getActivity().setTitle(getResources().getString(R.string.fragment_title_details));
     }
 
+    /*
+     * Format @Movie release date String from 2000-01-01 to 01 Jan 2000
+     */
+    private String formatDate(String stringDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+        Date date = null;
+
+        try {
+            date = inputFormat.parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputFormat.format(date);
+    }
 }

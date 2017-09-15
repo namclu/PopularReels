@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/grid_detail_padding"
     tools:context="com.namclu.android.popularreels.fragment.MovieListFragment">
 
     <TextView
         android:id="@+id/text_movie_title"
+        style="@style/Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,13 +20,22 @@
 
     <TextView
         android:id="@+id/text_movie_synopsis"
+        style="@style/Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_movie_title"
         tools:text="Movie Synopsis"/>
+
+    <TextView
+        android:id="@+id/text_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_movie_synopsis"
+        tools:text="Release date"/>
 
     <TextView
         android:id="@+id/text_movie_rating"
@@ -33,25 +43,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/text_release_date"
         app:layout_constraintTop_toBottomOf="@+id/text_movie_synopsis"
-        tools:text="4 stars"/>
-
-    <TextView
-        android:id="@+id/text_release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_movie_rating"
-        tools:text="Release date..."/>
+        tools:text="5.0/10"/>
 
     <ImageView
         android:id="@+id/image_movie_poster"
         android:layout_width="@dimen/movie_details_poster_width"
         android:layout_height="@dimen/movie_details_poster_height"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_menu_gallery"
         app:layout_constraintLeft_toLeftOf="parent"
