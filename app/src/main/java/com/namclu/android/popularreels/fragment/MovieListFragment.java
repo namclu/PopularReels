@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.namclu.android.popularreels.BuildConfig;
 import com.namclu.android.popularreels.adapter.MoviesAdapter;
@@ -61,9 +62,16 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
-                refreshMovies();
+            case R.id.action_top_rated:
+                loadTopRatedMovies();
                 return true;
+            case R.id.action_most_popular:
+                loadPopularMovies();
+                return true;
+            case R.id.action_refresh:
+                loadPopularMovies();
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -82,7 +90,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
         // Find references to views
         mGridView = (GridView) getView().findViewById(R.id.grid_view_movie);
 
-        refreshMovies();
+        loadPopularMovies();
     }
 
     @Override
@@ -93,27 +101,8 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     }
 
     /*
-    * Method to get a list of Movies and update GridView
-    * */
-    private void refreshMovies() {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                List<Movie> movies = response.body().getMovies();
-                mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
-                mGridView.setAdapter(mMoviesAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-            }
-        });
-    }
-
+     * Required method for MoviesAdapter.OnMovieClickListener
+     */
     @Override
     public void OnMovieClicked(Movie movie) {
         MovieDetailsFragment fragment = MovieDetailsFragment.newInstance(movie);
@@ -124,5 +113,53 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
                 .addToBackStack(FRAGMENT_MOVIE_DETAILS)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    /*
+    * Method to get a list of popular @Movies and update GridView
+    * */
+    private void loadPopularMovies() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                List<Movie> movies = response.body().getMovies();
+                mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
+                mGridView.setAdapter(mMoviesAdapter);
+
+                Toast.makeText(getContext(), R.string.toast_most_popular, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+    }
+
+    /*
+    * Method to get a list of top rated @Movies and update GridView
+    * */
+    private void loadTopRatedMovies() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<MovieResponse> call = apiInterface.getTopRatedMovies(API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                List<Movie> movies = response.body().getMovies();
+                mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
+                mGridView.setAdapter(mMoviesAdapter);
+
+                Toast.makeText(getContext(), R.string.toast_top_rated, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
     }
 }
