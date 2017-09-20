@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.namclu.android.popularreels.BuildConfig;
@@ -43,8 +44,9 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
 
     // Class variables
     private MoviesAdapter mMoviesAdapter;
-    private GridView mGridView;
+    private GridView mGridViewMovies;
     private ProgressBar mProgressBar;
+    private TextView mTextNoNetwork;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -90,8 +92,9 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
         super.onStart();
 
         // Find references to views
-        mGridView = (GridView) getView().findViewById(R.id.grid_view_movie);
+        mGridViewMovies = (GridView) getView().findViewById(R.id.grid_view_movies);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progress_bar_spinner);
+        mTextNoNetwork = (TextView) getView().findViewById(R.id.text_no_network);
 
         loadPopularMovies();
     }
@@ -129,9 +132,11 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 mProgressBar.setVisibility(View.GONE);
+                mTextNoNetwork.setVisibility(View.GONE);
+
                 List<Movie> movies = response.body().getMovies();
                 mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
-                mGridView.setAdapter(mMoviesAdapter);
+                mGridViewMovies.setAdapter(mMoviesAdapter);
 
                 Toast.makeText(getContext(), R.string.toast_load_most_popular, Toast.LENGTH_SHORT).show();
             }
@@ -140,7 +145,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
                 mProgressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "No network connection", Toast.LENGTH_SHORT).show();
+                mTextNoNetwork.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -156,9 +161,11 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 mProgressBar.setVisibility(View.GONE);
+                mTextNoNetwork.setVisibility(View.GONE);
+
                 List<Movie> movies = response.body().getMovies();
                 mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
-                mGridView.setAdapter(mMoviesAdapter);
+                mGridViewMovies.setAdapter(mMoviesAdapter);
 
                 Toast.makeText(getContext(), R.string.toast_load_top_rated, Toast.LENGTH_SHORT).show();
             }
@@ -167,7 +174,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
                 mProgressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "No network connection", Toast.LENGTH_SHORT).show();
+                mTextNoNetwork.setText(View.VISIBLE);
             }
         });
     }

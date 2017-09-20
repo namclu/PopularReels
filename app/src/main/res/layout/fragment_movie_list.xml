@@ -6,12 +6,12 @@
              tools:context=".fragment.MovieListFragment">
 
     <GridView
-        android:id="@+id/grid_view_movie"
+        android:id="@+id/grid_view_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:horizontalSpacing="@dimen/grid_item_spacing"
         android:numColumns="3"
-        android:verticalSpacing="@dimen/grid_item_spacing"
-        android:horizontalSpacing="@dimen/grid_item_spacing"/>
+        android:verticalSpacing="@dimen/grid_item_spacing"/>
 
     <ProgressBar
         android:id="@+id/progress_bar_spinner"
@@ -19,5 +19,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/text_no_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/error_no_network"
+        android:visibility="gone"/>
 
 </FrameLayout>
