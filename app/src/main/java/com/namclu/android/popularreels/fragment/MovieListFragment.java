@@ -124,25 +124,25 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     }
 
     /*
-    * Method to get a list of @Movies and update GridView
+    * Method to get a list of @Movie and update GridView
     *
-    * @param movieQuery     The @MovieResponse query
-    *   1 = TOP_RATED_MOVIES, 2 = POPULAR_MOVIES = default
+    * @param movieQuery     The @MovieResponse query where:
+    *   1 = TOP_RATED_MOVIES, 2 = POPULAR_MOVIES (default)
     * */
     private void loadMovies(int movieQuery) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<MovieResponse> call;
-        final int messageId;
+        final int toastMessage;
 
         switch (movieQuery) {
             case 1:
                 call = apiInterface.getTopRatedMovies(API_KEY);
-                messageId = R.string.toast_load_top_rated;
+                toastMessage = R.string.toast_load_top_rated;
                 break;
             case 2:
             default:
                 call = apiInterface.getPopularMovies(API_KEY);
-                messageId = R.string.toast_load_most_popular;
+                toastMessage = R.string.toast_load_most_popular;
                 break;
         }
 
@@ -156,7 +156,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
                 mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
                 mGridViewMovies.setAdapter(mMoviesAdapter);
 
-                Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
             }
 
             @Override
