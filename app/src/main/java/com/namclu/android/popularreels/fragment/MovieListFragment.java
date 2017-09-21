@@ -41,6 +41,8 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     private static final String TAG = MovieListFragment.class.getSimpleName();
     private static final String API_KEY = BuildConfig.MOVIES_DB_API_KEY;
     private static final String FRAGMENT_MOVIE_DETAILS = "FRAGMENT_MOVIE_DETAILS";
+    private static final int TOP_RATED_MOVIES = 1;
+    private static final int POPULAR_MOVIES = 2;
 
     // Class variables
     private MoviesAdapter mMoviesAdapter;
@@ -67,13 +69,13 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_top_rated:
-                loadTopRatedMovies();
+                loadMovies(TOP_RATED_MOVIES);
                 return true;
             case R.id.action_most_popular:
-                loadPopularMovies();
+                loadMovies(POPULAR_MOVIES);
                 return true;
             case R.id.action_refresh:
-                loadPopularMovies();
+                loadMovies(POPULAR_MOVIES);
                 return true;
 
         }
@@ -96,7 +98,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progress_bar_spinner);
         mTextNoNetwork = (TextView) getView().findViewById(R.id.text_no_network);
 
-        loadPopularMovies();
+        loadMovies(POPULAR_MOVIES);
     }
 
     @Override
@@ -122,12 +124,28 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     }
 
     /*
-    * Method to get a list of popular @Movies and update GridView
+    * Method to get a list of @Movies and update GridView
+    *
+    * @param movieQuery     The @MovieResponse query
+    *   1 = TOP_RATED_MOVIES, 2 = POPULAR_MOVIES = default
     * */
-    private void loadPopularMovies() {
+    private void loadMovies(int movieQuery) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<MovieResponse> call;
+        final int messageId;
 
-        Call<MovieResponse> call = apiInterface.getPopularMovies(API_KEY);
+        switch (movieQuery) {
+            case 1:
+                call = apiInterface.getTopRatedMovies(API_KEY);
+                messageId = R.string.toast_load_top_rated;
+                break;
+            case 2:
+            default:
+                call = apiInterface.getPopularMovies(API_KEY);
+                messageId = R.string.toast_load_most_popular;
+                break;
+        }
+
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -138,7 +156,7 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
                 mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
                 mGridViewMovies.setAdapter(mMoviesAdapter);
 
-                Toast.makeText(getContext(), R.string.toast_load_most_popular, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), messageId, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -146,35 +164,6 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
                 Log.e(TAG, t.toString());
                 mProgressBar.setVisibility(View.GONE);
                 mTextNoNetwork.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    /*
-    * Method to get a list of top rated @Movies and update GridView
-    * */
-    private void loadTopRatedMovies() {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<MovieResponse> call = apiInterface.getTopRatedMovies(API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                mProgressBar.setVisibility(View.GONE);
-                mTextNoNetwork.setVisibility(View.GONE);
-
-                List<Movie> movies = response.body().getMovies();
-                mMoviesAdapter = new MoviesAdapter(MovieListFragment.this, movies);
-                mGridViewMovies.setAdapter(mMoviesAdapter);
-
-                Toast.makeText(getContext(), R.string.toast_load_top_rated, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                mProgressBar.setVisibility(View.GONE);
-                mTextNoNetwork.setText(View.VISIBLE);
             }
         });
     }
