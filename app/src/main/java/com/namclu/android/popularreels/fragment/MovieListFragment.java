@@ -1,5 +1,7 @@
 package com.namclu.android.popularreels.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,6 +51,8 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     private GridView mGridViewMovies;
     private ProgressBar mProgressBar;
     private TextView mTextNoNetwork;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mPreferenceEditor;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -58,6 +62,9 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mSharedPreferences = getActivity().getSharedPreferences(
+                getString(R.string.preference_key), Context.MODE_PRIVATE);
+        mPreferenceEditor = mSharedPreferences.edit();
     }
 
     @Override
@@ -70,12 +77,17 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
         switch (item.getItemId()) {
             case R.id.action_top_rated:
                 loadMovies(TOP_RATED_MOVIES);
+                mPreferenceEditor.putInt(getString(R.string.preference_selection), TOP_RATED_MOVIES);
+                mPreferenceEditor.commit();
                 return true;
             case R.id.action_most_popular:
                 loadMovies(POPULAR_MOVIES);
+                mPreferenceEditor.putInt(getString(R.string.preference_selection), POPULAR_MOVIES);
+                mPreferenceEditor.commit();
                 return true;
             case R.id.action_refresh:
-                loadMovies(POPULAR_MOVIES);
+                loadMovies(mSharedPreferences.getInt(
+                        getString(R.string.preference_selection), POPULAR_MOVIES));
                 return true;
 
         }
@@ -98,7 +110,8 @@ public class MovieListFragment extends Fragment implements MoviesAdapter.OnMovie
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progress_bar_spinner);
         mTextNoNetwork = (TextView) getView().findViewById(R.id.text_no_network);
 
-        loadMovies(POPULAR_MOVIES);
+        loadMovies(mSharedPreferences.getInt(
+                        getString(R.string.preference_selection), POPULAR_MOVIES));
     }
 
     @Override

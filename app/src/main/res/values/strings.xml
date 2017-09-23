@@ -16,4 +16,6 @@
     <string name="description_movie_poster_image">Movie Poster Image</string>
     <string name="default_no_info">No info provided</string>
     <string name="error_no_network">No network connection</string>
+    <string name="preference_selection">Preference selection</string>
+    <string name="preference_key">com.namclu.popularreels.PREFERENCE_KEY</string>
 </resources>
