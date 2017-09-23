@@ -29,6 +29,15 @@ Directory Name: <Name of the repository>
 ```
 4. Build and Run
 
+## Obtain API key
+1. To generate an API key, follow the instructions below:
+
+- https://developers.themoviedb.org/3/getting-started
+
+2. One you've obtained an API key, place the following line of code in gradle.properties:
+
+- MOVIES_DB_API_KEY = "[Add API key here]"
+
 ## Author(s)
 
 - Nam Lu - [namclu](https://github.com/namclu)
